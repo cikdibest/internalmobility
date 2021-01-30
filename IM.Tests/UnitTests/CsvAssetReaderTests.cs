@@ -58,12 +58,12 @@ namespace IM.Tests.UnitTests
 
 
             var thirdAsset = assetList.Single(a => a.Id == 4);
-            Assert.IsTrue(secondAsset.IsConvertible);
-            Assert.IsFalse(secondAsset.IsCash);
-            Assert.IsFalse(secondAsset.IsFixIncome);
-            Assert.IsFalse(secondAsset.IsFuture);
-            Assert.IsFalse(secondAsset.IsSwap);
-            Assert.IsTrue(secondAsset.TimeStamp == DateTime.MinValue);
+            Assert.IsTrue(thirdAsset.IsConvertible);
+            Assert.IsFalse(thirdAsset.IsCash);
+            Assert.IsFalse(thirdAsset.IsFixIncome);
+            Assert.IsFalse(thirdAsset.IsFuture);
+            Assert.IsFalse(thirdAsset.IsSwap);
+            Assert.IsTrue(thirdAsset.TimeStamp == DateTime.MinValue);
         }
 
         [TestMethod]
