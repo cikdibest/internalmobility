@@ -8,6 +8,17 @@ namespace IM.Web.Database.Context
     public class IMDbContext : DbContext
     {
 
+        public IMDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
+
+
+        public IMDbContext()
+        {
+
+        }
+
         public virtual DbSet<AssetEntity> Assets { get; set; }
 
         public virtual DbSet<BatchEntity> Batches { get; set; }
