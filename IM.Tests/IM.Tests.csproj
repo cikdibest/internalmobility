@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="JustMock" Version="2021.1.115.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="MockQueryable.Core" Version="5.0.0" />
+    <PackageReference Include="MockQueryable.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="MockQueryable.Moq" Version="5.0.0" />
+    <PackageReference Include="Moq" Version="4.16.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
+    <PackageReference Include="coverlet.collector" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestCsvs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IM.Web\IM.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestCsvs\broken1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCsvs\valid1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
