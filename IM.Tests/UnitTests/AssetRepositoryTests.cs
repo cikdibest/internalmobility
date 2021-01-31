@@ -52,5 +52,50 @@ namespace IM.Tests.UnitTests
     (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), Times.Once);
         }
 
+
+        [TestMethod]
+        public async Task When_InsertAssetsIsCalledWithExistentAssetWithOldTimeStamp_Expect_AssetNotToBeInserted()
+        {
+            var mockAssetList = new List<AssetEntity>();
+
+            mockAssetList.Add(new AssetEntity
+            {
+                AssetId = 1,
+                TimeStamp = DateTime.Now
+            });
+
+            var mockDbSet =mockAssetList.AsQueryable().BuildMockDbSet();
+
+            imDbContext.Setup(s => s.Assets).Returns(mockDbSet.Object);
+
+            await assetRepository.InsertAssets(new List<AssetEntity> { new AssetEntity { AssetId = 1,TimeStamp = DateTime.Now.AddDays(-1) } });
+
+            imDbContext.Verify(s => s.Assets.Add(It.IsAny<AssetEntity>()), Times.Never);
+
+        }
+
+        [TestMethod]
+        public async Task When_InsertAssetsIsCalledWithExistentAssetWithNewTimeStamp_Expect_AssetToBeInserted()
+        {
+            var mockAssetList = new List<AssetEntity>();
+
+            mockAssetList.Add(new AssetEntity
+            {
+                AssetId = 1,
+                TimeStamp = DateTime.Now
+            });
+
+            var mockDbSet = mockAssetList.AsQueryable().BuildMockDbSet();
+
+            imDbContext.Setup(s => s.Assets).Returns(mockDbSet.Object);
+
+            await assetRepository.InsertAssets(new List<AssetEntity> { new AssetEntity { AssetId = 1, TimeStamp = DateTime.Now.AddDays(1) } });
+
+            imDbContext.Verify(s => s.Assets.Add(It.IsAny<AssetEntity>()), Times.Once);
+
+            imDbContext.Verify(s => s.Assets.Remove(It.IsAny<AssetEntity>()), Times.Once);
+
+        }
+
     }
 }
