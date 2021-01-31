@@ -97,5 +97,59 @@ namespace IM.Tests.UnitTests
 
         }
 
+
+        [TestMethod]
+        public async Task When_SetPropertyForAssetCalledWithOlderAsset_Expect_AssetNotToBeChanged()
+        {
+            var mockAssetList = new List<AssetEntity>();
+
+            mockAssetList.Add(new AssetEntity
+            {
+                AssetId = 1,
+                TimeStamp = DateTime.Now
+            });
+
+            var mockDbSet = mockAssetList.AsQueryable().BuildMockDbSet();
+
+            imDbContext.Setup(s => s.Assets).Returns(mockDbSet.Object);
+
+            await assetRepository.SetPropertyForAsset(new Web.Model.SetPropertyForAssetRequestModel
+            {
+                AssetId = 1,
+                TimeStamp = DateTime.Now.AddDays(-1),
+                Property = "is future",
+                Value = false
+            });
+
+            imDbContext.Verify(s => s.Assets.Update(It.IsAny<AssetEntity>()), Times.Never);
+        }
+
+
+        [TestMethod]
+        public async Task When_SetPropertyForAssetCalledWithNewAsset_Expect_AssetToBeChanged()
+        {
+            var mockAssetList = new List<AssetEntity>();
+
+            mockAssetList.Add(new AssetEntity
+            {
+                AssetId = 1,
+                TimeStamp = DateTime.Now.AddDays(-1)
+            });
+
+            var mockDbSet = mockAssetList.AsQueryable().BuildMockDbSet();
+
+            imDbContext.Setup(s => s.Assets).Returns(mockDbSet.Object);
+
+            await assetRepository.SetPropertyForAsset(new Web.Model.SetPropertyForAssetRequestModel
+            {
+                AssetId = 1,
+                TimeStamp = DateTime.Now,
+                Property ="is future",
+                Value = true
+            });
+
+            imDbContext.Verify(s => s.Update(It.IsAny<AssetEntity>()), Times.Once);
+        }
+
     }
 }

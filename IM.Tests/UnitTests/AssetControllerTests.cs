@@ -9,8 +9,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IM.Tests.UnitTests
@@ -66,15 +64,10 @@ namespace IM.Tests.UnitTests
                 BatchSize = 10,
                 Path = "Test"
             });
-            
+
             assetRepository.Verify(s => s.InsertAssets(It.IsAny<IEnumerable<AssetEntity>>()), Times.Once);
 
-
-
-
             batchRepository.Verify(s => s.InsertBatch(It.IsAny<BatchEntity>()), Times.Once);
-
-
         }
     }
 }
