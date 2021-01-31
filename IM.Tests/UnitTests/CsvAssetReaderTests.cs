@@ -84,5 +84,29 @@ namespace IM.Tests.UnitTests
             }
 
         }
+
+
+
+
+
+
+
+
+        [TestMethod]
+        public void When_ReadCSVFileCalledWithProperCsvFileWithBatchSizeSet_Expect_AssetModelListAndBatches()
+        {
+            var returnModel = csvAssetReader.ReadCSVFile(new Web.Model.ProcessCsvFileRequestModel
+            {
+                Path = ".\\TestCsvs\\valid1000.csv",
+                BatchSize = 100
+            });
+
+            var assetList = returnModel.Assets;
+
+            Assert.IsTrue(assetList.Count() == 1259);
+
+            Assert.IsTrue(returnModel.Batches.Count() == 13);
+
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace IM.CsvConverter
                     Content = string.Join(Environment.NewLine, batch)
                 });
             }
-
+            modelToReturn.Batches = batches;
             return modelToReturn;
         }
 

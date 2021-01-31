@@ -20,15 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestCsvs\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\IM.Web\IM.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="TestCsvs\broken1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCsvs\valid1000.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestCsvs\valid1.csv">
